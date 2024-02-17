@@ -1,0 +1,135 @@
+
+\chapter{Felhasználói dokumentáció}
+	\section{Rendszerkövetelmények}
+		A program futtatásához szükségünk van .NET keretrendszer 4.6.1 verziójára, melyet a Windows 7-től kezdődően minden Windows operációs rendszer támogat. Ezeknek az elvárt rendszerkövetelményét vettem figyelembe az alábbiaknál. \cite{dotnet} \cite{win}
+		\subsection{Minimum rendszerkövetelmények}
+		Szoftverkövetelmények:
+		\begin{itemize}
+			\item \textbf{Operációs rendszer:} Windows 7/8/10 (x86)
+			\item \textbf{.NET Framework:} 4.6.1
+		\end{itemize}
+		
+		Hardverkövetelmények:
+		\begin{itemize}
+			\item \textbf{Processzor:} 1 GHz -- \textit{többmagos ajánlott}
+			\item \textbf{RAM:} 1 GB -- \textit{2 GB ajánlott}
+			\item \textbf{Tárhely:} 4,5 GB
+			\item \textbf{Grafikus kártya:} 512MB 
+		\end{itemize}
+	 
+	\section{Telepítés}
+	
+		A program használata nem igényel telepítést, a futtatható állomány indításával munkára fogható. Ezen felül viszont rendelkezni kell .NET keretrendszer $4.6.1$-es verziójával, melyet a felhasználó letölthet a Microsoft oldaláról.
+		
+	\section{Mentett fájlok szerkezete}
+		
+		Amennyiben a felhasználó saját inputfájlt szeretne generálni meglévő adataiból, fontos figyelembe vennie a fejezetben szereplő megkötéseket, hogy azoknak eleget téve készítse el a fájlokat. A fájlok saját kiterjesztéssel rendelkeznek. A program csak a kívánt kiterjesztésű fájlt képes megnyitni, így fontos ennek pontossága is. 
+		
+		Kétféle fájltípust különböztethetünk meg. A színskálát tároló fájl kiterjesztése \textit{.mcf}, mely a \textit{map color file} rövidítése, illetve az alappontokat tartalmazó fájl kiterjesztése \textit{.mdf}, mely a \textit{map data file} rövidítéséből ered.
+		
+		\subsection{Színskálafájl  felépítése }
+		
+			A színskála tetszőleges számú színből állhat össze. Ezek egy sorban, szóközzel elválasztva szerepelnek a fájlban. Minden színhez négy adat tartozik, mely $0$ és $255$ közti egész szám lehet.  Ezek a számok BGRA színtípusnak megfelelő adatok. Rendere az első szám a kék színhez tartozik, második a zöldhöz, harmadik a piroshoz, végül a színek átlátszóságáért felelős alfa adattag.
+			
+		\subsection{Alappontfájl  felépítése }
+			
+			Az alappontfájl felépítése egyes mérések importálásához szükséges. A fájl szintén egy sorban tárolja az egyenként három adattagot tartalmazó alappontokat. Az alappont első tagja az $x$ tengelyen, második az $y$ tengelyen felvett pixelérték, a harmadik pedig a függvény, vagy hőmérsékleti érték. Mindhárom egész szám.
+	
+	\section{Felületi leírás, használat}
+		
+		A program indításkor a főablakot jeleníti meg, amely még nem  tartalmaz alappontokat. Felül található egy menüsor, ahol ki lehet választani a számunkra megfelelő beállításokat, mentés menüpont alatt betölthetünk korábbi mentéseket, nézet alatt módosíthatjuk a színskálát, és a későbbiekben megtekinthetjük a függvényünk háromdimenziós ábrázolását. 
+		\begin{figure}[ht]
+			\centering
+			\includegraphics[scale=0.55]{user/EmptyMain.png}
+			\caption{Üres főablak kinézete}
+		\end{figure}
+		
+		\subsection{Főablak kezelése}
+		
+			Ahhoz hogy ábrázoljon a főablak lehelyezhetünk pontokat, melyet a vászonra a bal egérgomb dupla kattintásával tudunk megtenni. Ilyenkor a lehelyezett pont értéke $0$ °C. Egy pontot kijelölve módosíthatjuk értékét a jobb oldalon megjelenő szám átírásával, vagy az egérgörgő mozgatásával. A kijelölt pontot, -- amely szürke színnel megkülönböztetett -- lehetséges törölni a \textbf{Delete} gombbal. 
+			
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.55]{user/GaussianExample.png}
+				\caption{Főablak lehelyezett alappontokkal}
+			\end{figure}
+		
+		\subsection{Háromdimenziós függvényábrázolás}
+		
+		Ezen az ablakon látható a koordináta rendszer, és azon elhelyezve a közelítőfüggvényünk, aminek tulajdonságait könnyebben vizsgálhatjuk. 
+		\begin{figure}[ht]
+			\centering
+			\includegraphics[scale=0.6]{user/GaussianExampleThreeD.png}
+			\caption{Gauss-függvényekkel való közelítés}
+		\end{figure}
+		
+		\subsection{Színskála módosítás}
+			A színskála módosítóablakát a ,,Nézet'' menüpont alatt érhetjük el, vagy a \textbf{Ctrl+1} billentyűkombinációval. 
+			
+			A színskálához hozzá tudunk adni új színt, vagy már létezőt módosíthatunk kívánalmunknak megfelelő gombra kattintva, amely beépített színválasztó ablakot jelenít meg, amelyen tetszés szerint választhatunk színt. Ha már létezik az adott szín abban az esetben a program nem adja hozzá a színskálához, ezt információs ablakban jelzi. \ref{fig:colorwarning}. ábra.
+			
+			Amennyiben törölni szeretnénk, jelöljük ki a törlendő színt, majd a ,,Törlés'' gombbal törölhetjük azt. Fontos megemlíteni, hogy két színnél kevesebb nem lehet a táblázatban, így két színnél már nem enged törölni a program. 
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.65]{user/ColorScale.png}
+				\caption{Színskála módosítóablaka}
+				
+			\end{figure}
+		
+		
+		\subsection{Kép, pont, színskála mentése}
+			A pontokat, színskálát, és a már ábrázolt hőtérképet azonosan a ,,Mentés'' legördülő menüsáv alatti menüpontokra kattintva lehet menteni, vagy betölteni. A mentésnél mindháromnál ugyanaz a mentőfelület található, csupán a mentendő fájl kiterjesztésében térnek el. Ez a mentőablak a \texttt{C\#} beépített osztályába tartozó dialógusablak. Ugyanez jelenik meg az új térkép kezdésekor elmentendő pontok esetén. A mentendő fájl nevét az annak megfelelő helyre írva menthetünk a kiválasztott mappába, később a fájlt ugyanitt találjuk meg betöltés esetén.  A színek betöltésénél, illetve a pontok betöltését kezelő betöltő dialógusablak hasonlít az előzőhöz, csak olyan fájlokat jelenít meg aminek a kiterjesztése megegyezik az általunk elvárt kiterjesztéssel. 
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.4]{user/SaveWindow.png}
+				\caption{A mentésekhez tartozó felület}
+			\end{figure}
+	\section{Hibaforrások, hibaüzenetek}
+		
+		A program futása során felmerülő felhasználói hibalehetőségek, a fejezetben bemutatott hibák esetén kezelve lettek. Célja, hogy a felhasználó visszajelzést kapjon, hogy adott problémára reagálva, a programot helyesen használja. A hibaüzenetek felugró ablakon jelennek meg.
+		
+		\subsection{Betöltéskor, mentéskor adódó hiba}
+			Amikor a színek betöltésénél, a forrásfájlban nem várt érték található, akkor a következő hibaüzenetet kapjuk.
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=1]{user/color_load_error.png}
+				\caption{Színbetöltés hibaüzenete}
+			\end{figure}
+				
+			Amennyiben az alappontok betöltésénél merül fel hiba, a program a következő üzenetet írja.
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=1]{user/point_load_error.png}
+				\caption{Alappontbetöltés hibaüzenete}
+			\end{figure}
+				
+			Abban az esetben ha üres térkép nem létező alappontjait próbáljuk elmenteni, a program szintén hibát jelez. 
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=1]{user/point_save_error.png}
+				\caption{Alappontmentés hibaüzenete}
+			\end{figure}
+		\subsection{Rossz adat megadása}
+			Ha a kiválasztott alappontnak szeretnénk más értéket adni, de annak típusa nem egész, abban az esetben a program figyelmeztet egy információs ablakban, hogy az adatot megfelelően adjuk meg.
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.9]{user/datatype_warning.png}
+				\caption{Helytelen adat információs ablaka}
+			\end{figure}
+		\subsection{Létező szín kiválasztása}
+			Amikor a színskálán szeretnénk módosítani, vagy ahhoz színt hozzáadni, nem lehetséges már a skálában létező színt a táblázathoz adni. Ilyenkor a program információs ablakban közli a problémát.
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.9]{user/colorexist_warning.png}
+				\caption{Létező szín információs ablaka}
+				\label{fig:colorwarning}
+			\end{figure}
+		\subsection{Új térkép kezdése}
+		
+			Amennyiben rákattintunk az ,,Új térkép'' menüpontra kattintva a program felajánlja, hogy eddigi munkánkat menthessük, az ne vesszen el. Ekkor három lehetőség közül lehet választani, amennyiben a nemre kattintunk, üres vászont nyit nekünk a program, ha igenre kattintunk, abban az esetben felugrik a mentés felület ahol a pontokat tudjuk menteni. A mégse gombbal pedig visszatérhetünk jelenlegi munkánkhoz.
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.9]{user/would_saving.png}
+				\caption{Szándékellenőrző felület}
+				\label{fig:colorwarning}
+			\end{figure}

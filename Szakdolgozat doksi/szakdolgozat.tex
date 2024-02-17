@@ -1,0 +1,85 @@
+%
+
+\documentclass[12pt]{report}
+\usepackage{t1enc}
+\usepackage[utf8]{inputenc}
+\usepackage[magyar]{babel}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{newtxtext,newtxmath}
+\usepackage{enumitem}
+\setlist[enumerate,1]{label=\textbf{\arabic*.},itemsep=1pt,topsep=0pt,align=right}
+\setlist[enumerate,2]{label=\textit{\alph*)},itemsep=1pt,topsep=0pt,align=right}
+\usepackage[unicode,breaklinks,colorlinks=true,allcolors=black]{hyperref}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper,left=35mm,right=25mm,bottom=25mm,top=25mm,footskip=10mm}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{array}
+\theoremstyle{plain}
+\newtheorem{tetel}{Tétel}[section]
+\newtheorem{feladat}[tetel]{Feladat}
+\theoremstyle{definition}
+\newtheorem{defi}[tetel]{Definició}
+\parindent=0pt
+\parskip=3mm
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{longtable}
+\setlength{\parindent}{0.5cm}
+
+
+\begin{document}	
+
+\begin{titlepage}
+	\vspace*{0cm}
+	\centering
+	\begin{tabular}{cp{1cm}c}
+		\begin{minipage}{4cm}
+			\vspace{0pt}
+			\includegraphics[scale=0.07]{main/elte_logo.png}
+		\end{minipage} & &
+		\begin{minipage}{7cm}
+			\vspace{0pt}Eötvös Loránd Tudományegyetem \vspace{10pt} \newline
+			Informatikai Kar \vspace{10pt} \newline
+			Numerikus Analízis Tanszék
+		\end{minipage}
+	\end{tabular}
+	
+	\vspace*{0.2cm}
+	\rule{\textwidth}{1pt}
+	
+	\vspace*{5cm}
+	{\Huge Hőtérkép készítése radiális bázisfüggvények segítségével }
+	
+
+	
+	\vspace*{9cm}
+	
+	\begin{tabular}{lp{5cm}l}
+		Témavezető: & & Szerző: \\
+		\textbf{Dr. Lócsi Levente}  & &  \textbf{Horváth Milán} \\
+		egyetemi adjunktus & & programtervező informatikus BSc
+	\end{tabular}
+	
+	\vfill
+	
+	\vspace*{1cm}
+	Budapest, 2020
+\end{titlepage}
+\thispagestyle{empty}
+\onehalfspacing
+\tableofcontents
+\newpage
+	\input{bevezetes.tex}
+	\input{matematika.tex}
+	\input{felhasznaloi.tex}
+	\input{fejlesztoi.tex}
+	\input{osszefoglalas.tex}
+	\input{eleresek.tex}
+	
+\end{document}
+

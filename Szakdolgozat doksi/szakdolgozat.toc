@@ -1,0 +1,61 @@
+\select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezetés}{4}{chapter.1}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Matematikai háttér}{6}{chapter.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Többváltozós interpoláció}{6}{section.2.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Radiális bázisfüggvény}{6}{section.2.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.3}Nevezetes bázisfüggvények}{8}{section.2.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.1}Gauss}{8}{subsection.2.3.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.2}Multiquadrics}{9}{subsection.2.3.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.3}Inverz multiquadrics}{9}{subsection.2.3.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.4}Inverz quadratic}{10}{subsection.2.3.4}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.5}Thin plate spline}{11}{subsection.2.3.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.4}Lineáris egyenletrendszereket megoldó módszerek}{12}{section.2.4}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {2.4.1}Gauss-elimináció}{12}{subsection.2.4.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {2.4.2}Gauss-elimináció részleges főelem kiválasztással}{12}{subsection.2.4.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {2.4.3}Cholesky-felbontás}{12}{subsection.2.4.3}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Felhasználói dokumentáció}{14}{chapter.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Rendszerkövetelmények}{14}{section.3.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.1.1}Minimum rendszerkövetelmények}{14}{subsection.3.1.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Telepítés}{15}{section.3.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.3}Mentett fájlok szerkezete}{15}{section.3.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.1}Színskálafájl felépítése }{15}{subsection.3.3.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.3.2}Alappontfájl felépítése }{15}{subsection.3.3.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.4}Felületi leírás, használat}{15}{section.3.4}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.1}Főablak kezelése}{16}{subsection.3.4.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.2}Háromdimenziós függvényábrázolás}{17}{subsection.3.4.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.3}Színskála módosítás}{17}{subsection.3.4.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.4.4}Kép, pont, színskála mentése}{18}{subsection.3.4.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.5}Hibaforrások, hibaüzenetek}{19}{section.3.5}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.1}Betöltéskor, mentéskor adódó hiba}{19}{subsection.3.5.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.2}Rossz adat megadása}{20}{subsection.3.5.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.3}Létező szín kiválasztása}{20}{subsection.3.5.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.4}Új térkép kezdése}{21}{subsection.3.5.4}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Fejlesztői dokumentáció}{22}{chapter.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Megvalósítandó feladat}{22}{section.4.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Használati esetek}{22}{subsection.4.1.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Felhasználói történet táblázat}{22}{subsection.4.1.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Megvalósítás}{28}{section.4.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Fejlesztői környezet, architektúrák}{28}{subsection.4.2.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Modell réteg osztályai}{28}{subsection.4.2.2}% 
+\select@language {magyar} \contentsline {subsubsection}{Point osztály}{28}{section*.3}% 
+\select@language {magyar} \contentsline {subsubsection}{CholeskyDecomposition osztály}{29}{section*.4}% 
+\select@language {magyar} \contentsline {subsubsection}{GaussianElimination osztály}{29}{section*.5}% 
+\select@language {magyar} \contentsline {subsubsection}{GaussianEliminationSPP osztály}{29}{section*.6}% 
+\select@language {magyar} \contentsline {subsubsection}{RBFmodel osztály}{29}{section*.7}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.3}Perzisztencia réteg osztályai}{32}{subsection.4.2.3}% 
+\select@language {magyar} \contentsline {subsubsection}{IRBFPersistenceDataAccess interfész}{32}{section*.8}% 
+\select@language {magyar} \contentsline {subsubsection}{RBFPersistenceDataAccess osztály}{32}{section*.9}% 
+\select@language {magyar} \contentsline {subsubsection}{RBFPersistenceException osztály}{33}{section*.10}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.4}Nézet-modell réteg osztályai}{33}{subsection.4.2.4}% 
+\select@language {magyar} \contentsline {subsubsection}{MessageEventArgs osztály}{33}{section*.11}% 
+\select@language {magyar} \contentsline {subsubsection}{ViewModelBase osztály}{33}{section*.12}% 
+\select@language {magyar} \contentsline {subsubsection}{DelegateCommand osztály}{34}{section*.13}% 
+\select@language {magyar} \contentsline {subsubsection}{ThreeDVM osztály}{34}{section*.14}% 
+\select@language {magyar} \contentsline {subsubsection}{ColorScaleViewModel osztály}{34}{section*.15}% 
+\select@language {magyar} \contentsline {subsubsection}{RBFViewModel}{35}{section*.16}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.3}Tesztelés}{36}{section.4.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.1}Fehér-doboz tesztelés}{36}{subsection.4.3.1}% 
+\select@language {magyar} \contentsline {subsubsection}{Egységteszt}{36}{section*.17}% 
+\select@language {magyar} \contentsline {subsubsection}{Összehasonlító tesztelés}{38}{section*.18}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.2}Fekete-doboz tesztelés}{39}{subsection.4.3.2}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Befejezés}{41}{chapter.5}% 
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyzék}{42}{chapter*.21}% 

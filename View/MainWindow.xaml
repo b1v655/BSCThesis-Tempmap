@@ -1,0 +1,102 @@
+﻿<Window x:Class="WpfApp2.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        SizeChanged="Window_SizeChanged"
+        Title="Hőtérkép készítő" Width="640" Height="480"  MinHeight="480" MinWidth="640">
+
+    <Grid Margin="-2,0,2,0" x:Name="mygrid">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="20" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Fájl">
+                <MenuItem Header="Új térkép" Command="{Binding NewMapCommand}" />
+                
+            </MenuItem>
+            <MenuItem Header="Nézet">
+                <MenuItem Header="Hideg szín" InputGestureText="Ctrl+1" Command="{Binding SetFirstColorCommand}" />
+                <MenuItem Header="Közepesen hideg szín" InputGestureText="Ctrl+2" Command="{Binding SetSecondColorCommand}" />
+                <MenuItem Header="Közepes szín" InputGestureText="Ctrl+3" Command="{Binding SetThirdColorCommand}" />
+                <MenuItem Header="Közepesen meleg szín" InputGestureText="Ctrl+4" Command="{Binding SetForthColorCommand}" />
+                <MenuItem Header="Meleg szín" InputGestureText="Ctrl+5" Command="{Binding SetFifthColorCommand}" />
+                <MenuItem Header="Legmelegebb szín" InputGestureText="Ctrl+6" Command="{Binding SetSixthColorCommand}" />
+                <MenuItem Header="Összes szín" InputGestureText="Ctrl+0" Command="{Binding SetAllColorCommand}" />
+                <Separator />
+                <MenuItem Header="Frissítés" InputGestureText="Ctrl+F" Command="{Binding RefreshCommand}" />
+                <Separator />
+                <MenuItem Header="3D nézet" Command="{Binding ThreeDViewCommand}" />
+
+            </MenuItem>
+            <MenuItem Header="Mentés">
+                <MenuItem Header="Kép mentése"  InputGestureText="Ctrl+S" Command="{Binding SaveImageCommand}" />
+                <Separator />
+                <MenuItem Header="Pontok mentése"  InputGestureText="Ctrl+Shift+S" Command="{Binding SavePointsCommand}" />
+                <MenuItem Header="Pontok betöltése"  InputGestureText="Ctrl+Shift+L" Command="{Binding LoadPointsCommand}" />
+                <Separator />
+
+            </MenuItem>
+            <MenuItem Header="Beállítások">
+                <MenuItem Header="Mátrix felbontás">
+                    <MenuItem Header="Cholesky felbontás" Command="{Binding CholeskyCommand}" />
+                    <MenuItem Header="Gauss elimináció" Command="{Binding GECommand}" />
+                    <MenuItem Header="Gauss elimináció részleges főelemkiválasztással" Command="{Binding GESPPCommand}" />
+                </MenuItem>
+                <MenuItem Header="Bázisfüggvény típusa">
+                    <MenuItem Header="Multikvadrik" Command="{Binding MQCommand}" />
+                    <MenuItem Header="Inverzkvadratik" Command="{Binding IQCommand}" />
+                    <MenuItem Header="Gaussi" Command="{Binding GCommand}"  />
+                    <MenuItem Header="Inverz-multikvadrik" Command="{Binding IMQCommand}" />
+                    <MenuItem Header="Thin plate spline" Command="{Binding TPSCommand}" />
+                </MenuItem>
+                <MenuItem Header="Fügvényfolytonosság">
+                    <MenuItem Header="Folytonos" Command="{Binding CABCommand}" />
+                    <MenuItem Header="Kerekített" Command="{Binding NCABCommand}" />
+                </MenuItem>
+                <MenuItem Header="Epszilon értéke">
+                    <MenuItem Header="0,005" Command="{Binding EpsylonFiveCommand}" />
+                    <MenuItem Header="0,001" Command="{Binding EpsylonOneCommand}" />
+                    <MenuItem Header="0,0005" Command="{Binding EpsylonNullFiveCommand}" />
+                    <MenuItem Header="0,0001" Command="{Binding EpsylonNullOneCommand}" />
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <Canvas x:Name="ParentCv" MouseMove="OnMouseMove" MouseWheel=" PreviewMouseWheel"  Grid.Row="1" Grid.Column="0"
+                HorizontalAlignment="Left" VerticalAlignment="Top">
+        </Canvas>
+        <Canvas x:Name="colorsCV"  Grid.Row="1" Width="34" Height="297" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <StatusBar x:Name="MyStatusBar"  Grid.Row="2" HorizontalAlignment="Stretch" Height="25"  VerticalAlignment="Bottom" >
+            <StatusBarItem>
+                <TextBlock Name="StatusBarText" />
+                
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Center">
+              <TextBlock x:Name="StatusBarText2" HorizontalAlignment="Center" />
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="StatusBarText3" HorizontalAlignment="Right" />
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+    <Window.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding PointPasteCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="D1" Command="{Binding SetFirstColorCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="D2" Command="{Binding SetSecondColorCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="D3" Command="{Binding SetThirdColorCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="D4" Command="{Binding SetForthColorCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="D5" Command="{Binding SetFifthColorCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="D6" Command="{Binding SetSixthColorCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="D0" Command="{Binding SetAllColorCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="F" Command="{Binding RefreshCommand}"  />
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveImageCommand}"  />
+        <KeyBinding Key="Delete" Command="{Binding PointRemoveCommand}"  />
+        <KeyBinding Modifiers="Ctrl+Shift" Key="S" Command="{Binding SavePointsCommand}"  />
+        <KeyBinding Modifiers="Ctrl+Shift" Key="L" Command="{Binding LoadPointsCommand}"  />
+        <MouseBinding Gesture="LeftClick" Command="{Binding ChoosedPointCommand}"  />
+
+    </Window.InputBindings>
+    
+</Window>

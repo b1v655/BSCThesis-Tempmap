@@ -1,0 +1,199 @@
+	
+	\chapter{Matematikai háttér}
+	
+	
+	A program célja, hogy kapjunk egy olyan hőtérképet, amelyen láthatók mekkorák a hőmérsékleti értékek egyes helyek körül. A számításhoz interpolációs módszerek közül kell megválasztani az optimálisat, amely kellő pontossággal tudja közelíteni az általunk keresett mérési pontok közti terület hőmérsékleti értékét. A programhoz szükségem lesz eliminációs, azokat optimalizáló módszerekre, illetve interpolációs módszerre, amelyeket az alábbiakban részletezek.
+		
+		\section{Többváltozós interpoláció}
+		
+		A térképünkön lévő mérési pontokat a pixelek koordinátájával jelöljük. A kétdimenziós térképhez így szükségünk lesz egy többváltozós interpolációs módszerre. A lehelyezett alappontok nem szabályos formában helyezkednek el, így azokat szórt alappontoknak nevezzük, melyre jól működik a radiális bázisfüggvényekkel való közelítés. Ennek magas műveletigénye van, de látványosabb és pontosabb közelítéseket kaphatunk a többi módszernél.
+		
+		\section{Radiális bázisfüggvény}\label{subsec:num1}
+		
+		A többváltozós interpoláción belül a radiális bázisfüggvények eltoltjait fogjuk használni, ami segítségével megkaphatjuk a szükséges függvény közelítését. Minden egyes pixelt koordinátapontként kezelünk, és ezeket a közelítőfüggvény értéke szerint színezzük.
+		
+		\begin{defi}[Radiális függvény] 
+			Legyen $\varphi : [0,\infty) \to \mathbb{R}$ függvény.  $\Phi: \mathbb{R}^n \to \mathbb{R}$ ($n \in \mathbb{N}$) függvényt radiális függvénynek nevezzük, ha $\Phi(\mathbf{x}) = \varphi(\|\mathbf{x}\|)$, ahol $\|.\|:\mathbb{R}^n \to [0, \infty)$ euklideszi norma.
+		\end{defi}	% x felvett értéke
+		Látható, hogy $\Phi$ értéke nem $\mathbf{x}$ függvényértékétől, hanem $\mathbf{x}$ pozíciójától függ. A továbbiakban az egyszerűség és szemléletesség kedvéért $\varphi$ segítségével írom fel a szükséges definíciókat, illetve a programhoz szükséges kétváltozós számításnál $\mathbf{x} \in \mathbb{R}^2$-beli vektorokat használok. 
+		
+		A keresett függvényünk, ahol $n$ jelöli az alappontok számát, a következő:
+		\[f(\mathbf{x}) = \sum_{i=1}^n \alpha_i \, \varphi(\|\mathbf{x} - \mathbf{x}_i\|) \qquad (\mathbf{x} \in \mathbb{R}^m, n,m \in \mathbb{N}).\]
+		
+		
+		A keresett függvény kiszámításához továbbá szükség lesz $\alpha_1,\alpha_2\ldots\alpha_n$ értékekre, melyek az alappontok egymáshoz való viszonya szerint súlyozottak a hozzájuk tartozó $\varphi$ függvényérték által. Ahhoz hogy $\alpha_1,\alpha_2\ldots\alpha_n$ értékeket megkapjuk, meg kell határoznunk az alappontokon felvett értékekre a lineáris kombinációjukat.
+		
+		Tehát, legyenek $\mathbf{x}_1, \mathbf{x}_2, \ldots , \mathbf{x}_n \in \mathbb{R}^m$-beli vektorok, melyek az alappontok helyét jelölik. 
+		Ekkor 
+			\begin{gather*}
+				f(\mathbf{x}_1) = \sum_{i=1}^n \alpha_i \, \varphi(\|\mathbf{x}_1 - \mathbf{x}_i\|)\\
+				f(\mathbf{x}_2) = \sum_{i=1}^n \alpha_i \, \varphi(\|\mathbf{x}_2 - \mathbf{x}_i\|)\\
+				\cdots\\
+				f(\mathbf{x}_n) = \sum_{i=1}^n \alpha_i \, \varphi(\|\mathbf{x}_n - \mathbf{x}_i\|)
+			\end{gather*}
+		lineáris egyenletrendszer megoldása az $\alpha \in \mathbb{R}^n$ vektor. A LER a következőképp írható fel.
+		\begin{equation}
+		\begin{bmatrix}
+			\varphi(\|\mathbf{x}_1 - \mathbf{x}_1\|) & \varphi(\|\mathbf{x}_1 - \mathbf{x}_2\|) & \cdots & \varphi(\|\mathbf{x}_1 - \mathbf{x}_n\|) \\
+			\varphi(\|\mathbf{x}_2 - \mathbf{x}_1\|) & \varphi(\|\mathbf{x}_2 - \mathbf{x}_2\|) & \cdots & \varphi(\|\mathbf{x}_2 - \mathbf{x}_n\|) \\
+			\vdots    & \vdots     & \ddots & \vdots\\
+			\varphi(\|\mathbf{x}_n - \mathbf{x}_1\|) & \varphi(\|\mathbf{x}_n - \mathbf{x}_2\|) & \cdots & \varphi(\|\mathbf{x}_n - \mathbf{x}_n\|)
+		\end{bmatrix}
+		\cdot
+		\begin{bmatrix}
+			\alpha_1 \\
+			\alpha_2 \\
+			\vdots \\
+			\alpha_n
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			f(\mathbf{x}_1) \\
+			f(\mathbf{x}_2) \\
+			\vdots \\
+			f(\mathbf{x}_n)
+		\end{bmatrix},\label{eq:egyes}
+		\end{equation}
+		ahol
+		\begin{equation}
+			A = 
+			\begin{bmatrix}
+			\varphi(\|\mathbf{x}_1 - \mathbf{x}_1\|) & \varphi(\|\mathbf{x}_1 - \mathbf{x}_2\|) & \cdots & \varphi(\|\mathbf{x}_1 - \mathbf{x}_n\|) \\
+			\varphi(\|\mathbf{x}_2 - \mathbf{x}_1\|) & \varphi(\|\mathbf{x}_2 - \mathbf{x}_2\|) & \cdots & \varphi(\|\mathbf{x}_2 - \mathbf{x}_n\|) \\
+			\vdots    & \vdots     & \ddots & \vdots\\
+			\varphi(\|\mathbf{x}_n - \mathbf{x}_1\|) & \varphi(\|\mathbf{x}_n - \mathbf{x}_2\|) & \cdots & \varphi(\|\mathbf{x}_n - \mathbf{x}_n\|)
+			\end{bmatrix}\label{eq:kettes}
+		\end{equation}
+		mátrixot interpolációs, vagy együttható mátrixnak nevezzük. \cite{intpolmatr}
+		
+		\section{Nevezetes bázisfüggvények}
+		
+		A radiális bázisfüggvényeknek számos fajtája létezik. Ezek közül ötöt használtam fel a program elkészítése során, melyeket részletesen szeretnék bemutatni.\\	
+		A következő függvények vizsgálatához az alábbiakat kössük ki.
+		
+		Rögzítsük $r = \|\mathbf{x} - \mathbf{x}_i\|$ paramétert, ahol $\|.\|$ szintén az euklideszi norma, ($i=1,2,\ldots,n$), ahol $n$ az alappontok száma.
+		
+		Továbbá bővítsük egy $\varepsilon$ konstanssal, amely a közelítőfüggvény tompításához szükséges. Ez a konstans közvetlen $r$ együtthatója lesz. Az $\varepsilon$-t az angolban $\textit{shape parameter}$-nek, \cite{rbf} magyarra fordítva $\textit{alakparaméter}$-nek hívnak. Az ábrán jól látható hogy a Gauss függvény kis $\varepsilon$ értékekre laposabb, míg nagy $\varepsilon$-ra meredeken, gyorsan közelít nullához.	
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[scale=0.8]{math/epsilon.png}
+			\caption{Triviális egyváltozós Gauss bázisfüggvény különböző epszilon értékekre \cite{epsilon}}
+		\end{figure}
+	
+		Az alábbiakban kifejtett függvényeknek illusztrációját online függvényábrázoló programmal készítettem. \cite{szerkeszto} 
+		 
+		\subsection{Gauss} % gauss függvény
+			A gauss függvény
+			\[\varphi(r) = e^{-(\varepsilon r)^2}\]
+			formájú, mely az alappontoktól távolodva a leggyorsabban közelít nullához.
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.6]{math/Gaussian.png}
+				\caption{Gauss bázisfüggvény}
+			\end{figure} 
+		\newpage
+		\subsection{Multiquadrics}
+			A multiquadrics függvény
+			\[\varphi(r) = \sqrt{1 + (\varepsilon r)^2},\]
+			amely tart a végtelenbe az alappontoktól távolodva.
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.6]{math/multiquadrics.png}
+				\caption{Multiquadrics bázisfüggvény}
+			\end{figure} 
+		
+		
+		\subsection{Inverz multiquadrics}
+			Az inverz multiquadrics bázisfüggvény reciproka a multiquadrics függvénynek, így már nem végtelenbe hanem nullába tart.
+			\[\varphi(r) = \dfrac{1}{\sqrt{1 + (\varepsilon r)^2}}\]
+		
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.6]{math/Inverse_multiquadrics.png}
+				\caption{Inverz multiquadrics bázisfüggvény}
+			\end{figure}
+			
+		\subsection{Inverz quadratic}
+		
+			Az inverz quadratic bázisfüggvény reciproka a multiquadrics függvény négyzeténeknek, így sokkal nagyobb mértékben közelít nullához mint az inverz multiquadrics bázisfüggvény.		
+			\[\varphi(r) = \dfrac{1}{1+(\varepsilon r)^2}\]
+			
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.6]{math/Inverse_quadratic.png}
+				\caption{Inverz quadratic bázisfüggvény}
+			\end{figure}
+		
+		\subsection{Thin plate spline}	
+			A \textit{thin plate spline} a \textit{poliharmonikus spline}-ok egy speciális fajtája. Ahhoz hogy ezt lássuk írjuk fel a poliharmónikus spline függvényét.
+			\begin{gather*}
+				\varphi(r) = r^k, \qquad k= 1,3,5,\ldots\\
+				\varphi(r) = r^k, \ln(r)\quad k= 2,4,6,\ldots
+			\end{gather*}
+			A poliharmonikus spline-oknál gondot okoz páros kitevős esetekben ($k=2,4,6,\ldots$) a logaritmus, mert $r=0$ esetben $\ln(0)=-\infty$. A probléma elkerülésére implementáláskor gyakran
+			\[\varphi(r)=r^{k-1}\ln(r^r)\]
+			függvényt használják.
+			A poliharmonikus spline nem tartalmazza $\varepsilon$ alakparamétert, anélkül is megfelelő közelítést ad.
+			
+			Thin plate spline a poliharmonikus spline $k=2$-es esete. 
+			\[\varphi(r) = r^2 \ln(r)\]
+			Az $r=0$ esetén a korábban említett problémát úgy kerüljük el, hogy ezen a helyen rögzítjük, hogy a függvény értéke $\varphi(0)=0$, egyéb esetekben pedig $\varphi(r)=r^2\ln(r)$.  
+			\[
+				\varphi(r) = \begin{cases} 
+					r^2 \ln(r) & \text{ ha } r \ne 0 \\
+					
+					0 & \text{ ha }r=0.
+				\end{cases}
+			\] 
+			\begin{figure}[ht]
+				\centering
+				\includegraphics[scale=0.5]{math/Thin_plate_spline.png}
+				\caption{Thin plate spline bázisfüggvény}
+			\end{figure} 
+		
+		\section{Lineáris egyenletrendszereket megoldó módszerek}
+		
+		A program számításához szükséges \ref{subsec:num1}. fejezet (\ref{eq:egyes}) lineáris egyenletrendszerének megoldását hatékony numerikus módszerrel határozzuk meg. 
+		Tekintsük az A mátrixot a lineáris egyenletrendszer együttható mátrixának, $\mathbf{x} =\begin{bmatrix}  \alpha_1 &\alpha_2 &\cdots &\alpha_n \end{bmatrix}^T$ és legyen $\mathbf{b}$ a lineáris egyenletrendszer eredményvektora.
+		Ekkor a megoldandó probléma 
+		\[
+			A\mathbf{x}=\mathbf{b} \quad (A\in \mathbb{R}^{n\times n}, \mathbf{x},\mathbf{b}\in \mathbb{R}^n)
+		\]
+		alakú, ha A invertálható mátrix, akkor
+		\[
+			\mathbf{x}=A^{-1}\mathbf{b} \quad (A\in \mathbb{R}^{n\times n}, \mathbf{x},\mathbf{b}\in \mathbb{R}^n)
+		\]
+		a lineáris egyenletrendszer megoldása.
+		
+		\subsection{Gauss-elimináció}
+		
+			A legismertebb módszer lineáris egyenletrendszer megoldására a Gauss-elimináció. Nagy műveletigényű ezért sok alappontra hosszú a futási ideje az algoritmusnak.  
+		
+		\subsection{Gauss-elimináció részleges főelem kiválasztással}
+		
+			Amennyiben az $A$ mátrix valamely i-re az $i-1$-ik eliminációs lépésre $a_{i,i}=0$, részleges főelemkiválasztást alkalmazhatunk. Ebben az esetben az $i-1$-ik lépésnél szereplő mátrixnak megkeressük az adott oszlopban lévő legnagyobb elemek abszolút értékei közül a legnagyobbat $(|a_{i,i}|, |a_{i+1,i}|,\ldots, |a_{n,i}|)$, melynek sorát felcseréljük az $i$-ik sorral.  
+			
+			Ezzel a módszerrel elkerülhetjük a kis számmal való osztást aminek köszönhetően csökkenthetjük a numerikus hibát. \cite{ge}
+			
+		\subsection{Cholesky-felbontás}\label{sssec:num1}
+		
+			A Cholesky-felbontással megoldható $A\mathbf{x}=\mathbf{b}$ egyenletrendszer ha az $A$ mátrix szimmetrikus és pozitív definit. Az algoritmus gyorsasága miatt nem ellenőrizzük előre a definitséget, azt az algoritmus végrehajtásakor megkapjuk. 
+			A Cholesky-felbontás \cite{cf} lépései:
+			\begin{itemize}
+				\item $A$ mátrixot felbontjuk alsó háromszögmátrixra, úgy hogy teljesüljön $A=LL^T$ egyenlőség.
+				\item $LL^T\mathbf{x}=\mathbf{b}$, ahol $\mathbf{y}:=L^T\mathbf{x}$
+				\item Oldjuk meg $L\mathbf{y}=\mathbf{b}$ lineáris egyenletrendszert.
+				\item A kapott $\mathbf{y}$-nal pedig az $L^T\mathbf{x}=\mathbf{y}$ egyenletrendszert.
+			\end{itemize} 
+			$A=LL^T$ mátrixfelbontáshoz \textit{Cholesky--Banachiewicz-algoritmust} használjuk, ahol
+		 	\begin{gather*}
+		 		l_{i,j}=\frac{1}{l_{j,j}}(a_{i,j}-\sum_{k=1}^{j-1}l_{i,k}l_{j,k}) \qquad (i>j)\\
+		 		l_{i,i} = \sqrt{a_{i,i}-\sum_{k=1}^{i-1}l_{i,k}^2}
+		 	\end{gather*}
+		 	az $L$ alsó háromszögmátrix elemei ezáltal számolható. Ha az algoritmusban szereplő gyök alatti tényező negatív, az algoritmus leáll. Az $A$ mátrix ebben az esetben nem szimmetrikus pozitív definit.
+		 	
+		 	
+		 	
+		 	
+	 	
+		 
